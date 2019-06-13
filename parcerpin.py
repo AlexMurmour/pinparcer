@@ -1,7 +1,7 @@
 import requests
 from selenium import webdriver
 from time import sleep
-import parcerpinS
+import conf
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import StaleElementReferenceException
 
@@ -13,16 +13,16 @@ def login():
     driver.get('https://www.pinterest.ru/')
     sleep(1)
     username = driver.find_element_by_id('email')
-    username.send_keys(parcerpinS.username)
+    username.send_keys(conf.username)
     password = driver.find_element_by_id('password')
-    password.send_keys(parcerpinS.password)
+    password.send_keys(conf.password)
     password.send_keys(Keys.RETURN)
     sleep(3)
 
 
 def create_pic_list():
     global urls
-    driver.get('https://www.pinterest.ru/pin/232709505727139314/')
+    driver.get('https://www.pinterest.ru/pin/232709505727139314/') #example
     sleep(2)
     pic_hrefs = []
     for i in range(1, 20):
@@ -60,14 +60,14 @@ def find_load():
 
 def load():
     q = requests.get(picture, stream=True)
-    with open("C:\\Users\\Alexandra\\PycharmProjects\\instagramlike\\picture\\photo\\" + get_name(picture), 'wb') as f:
+    with open("C:\\Users\\Alex\\picture\\pinterest\\" + get_name(picture), 'wb') as f: # add your path
         sleep(1)
         for chunk in q.iter_content(chunk_size=10000):
             sleep(0.5)
             f.write(chunk)
     return picture
 
-def de():
+def main():
     login()
     sleep(1)
     create_pic_list()
@@ -87,5 +87,5 @@ def de():
 
 
 if __name__ == '__main__':
-    de()
+    main()
 
